@@ -6,6 +6,8 @@
       <ul class="breadcrumbs">
         <li><a href="javascript::void(0)">Home</a></li>
         <li class="divider">/</li>
+        <li><a href="javascript::void(0)" class="active">Members</a></li>
+        <li class="divider">/</li>
         <li><a href="javascript::void(0)" class="active">All Members</a></li>
       </ul>
     </div>
@@ -57,7 +59,7 @@
                 </div>
               </div>
               <div class="col-md-2 text-end">
-                <button type="button" class="btn btn-primary btn-md d-flex align-items-center justify-content-center gap-1" onclick="addnewmember();"><i class='bx bxs-user-plus'></i> Add Member</button>
+                <button type="button" class="btn btn-primary btn-md d-flex align-items-center justify-content-center gap-1 w-100" onclick="addnewmember();"><i class='bx bxs-user-plus'></i> Add Member</button>
               </div>
             </div>
           </div>

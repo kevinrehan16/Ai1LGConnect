@@ -46,10 +46,49 @@
           $params[':membershipTo'] = date('Y-m-d', strtotime($_POST['srchMembershipdateto']));
       }
 
-      // Add condition for memberLvlTitle = 'Elders'
+      // Membership baptized in immersion condition
+      if (isset($_POST['baptizedImmersion']) && !empty($_POST['baptizedImmersion'])) {
+        $conditions[] = "baptizedImmersion = :baptizedImmersion";
+        $params[':baptizedImmersion'] = $_POST['baptizedImmersion'];
+      }
+
+      // Membership baptized in immersion date condition
+      if (isset($_POST['srchbaptizeddatefrom']) && !empty($_POST['srchbaptizeddatefrom']) && isset($_POST['srchbaptizeddateto']) && !empty($_POST['srchbaptizeddateto'])) {
+        $conditions[] = "baptizeddate BETWEEN :baptizeddatefrom AND :baptizeddateto";
+        $params[':baptizeddatefrom'] = date('Y-m-d', strtotime($_POST['srchbaptizeddatefrom']));
+        $params[':baptizeddateto'] = date('Y-m-d', strtotime($_POST['srchbaptizeddateto']));
+      }
+
+      // Membership status condition
+      if (isset($_POST['memberStatus']) && !empty($_POST['memberStatus']) && $_POST['memberStatus'] != "All") {
+        $conditions[] = "memberStatus = :memberStatus";
+        $params[':memberStatus'] = $_POST['memberStatus'];
+      }
+
+      // Membership birthday condition
+      if (isset($_POST['srchbdaydatefrom']) && !empty($_POST['srchbdaydatefrom']) && isset($_POST['srchbdaydateto']) && !empty($_POST['srchbdaydateto'])) {
+          $conditions[] = "birthday BETWEEN :bdaydatefrom AND :bdaydateto";
+          $params[':bdaydatefrom'] = date('Y-m-d', strtotime($_POST['srchbdaydatefrom']));
+          $params[':bdaydateto'] = date('Y-m-d', strtotime($_POST['srchbdaydateto']));
+      }
+
+      //!! Add condition for memberLvlTitle = 'Elders'
       if (isset($_POST['memberLvlTitle']) && !empty($_POST['memberLvlTitle'])) {
         $conditions[] = "memberLvlTitle = :memberLvlTitle";
         $params[':memberLvlTitle'] = $_POST['memberLvlTitle']; // You can change this based on your logic
+      }
+
+      // Membership GrowthGroup Status condition
+      if (isset($_POST['ggLeader']) && !empty($_POST['ggLeader'])) {
+        $conditions[] = "ggLeader != ''";
+      }
+
+      if (isset($_POST['ggMember']) && !empty($_POST['ggMember'])) {
+        $conditions[] = "ggMember != ''";
+      }
+
+      if (isset($_POST['ggNoGg']) && !empty($_POST['ggNoGg'])) {
+        $conditions[] = "ggMember = ''";
       }
   
       // Other conditions
@@ -161,23 +200,24 @@
         $addResult = $addmember->insert($info);
 
         //!! This code will make the $_POST['children'] a perfect array. So that you can count it correctly.
-        $cntChildren = json_decode($_POST['children'], true);
+        // $cntChildren = json_decode($_POST['children'], true);
         
-        $addmemberchild = $this->loadModel('memberchildren');
-        $children = [];
+        // $addmemberchild = $this->loadModel('memberchildren');
+        // $children = [];
 
-        foreach ($cntChildren as $key => $child) {
-          $childID = $addmember->createrecordid('GCF-MC', 'memberchildren', 'GCF-MC', 'childID');
-          // Access each child's name and age
-          $cInfo['childID'] = $childID;
-          $cInfo['memberid'] = $memID;
-          $cInfo['childname'] = $child['name'];
-          $cInfo['childage'] = $child['age'];
+        // foreach ($cntChildren as $key => $child) {
+        //   $childID = $addmemberchild->createrecordid('GCF-MC', 'memberchildren', 'GCF-MC', 'childID');
+        //   // Access each child's name and age
+        //   $cInfo['childID'] = $childID;
+        //   $cInfo['memberid'] = $memID;
+        //   $cInfo['childname'] = $child['name'];
+        //   $cInfo['childage'] = $child['age'];
           
-          $addmemberchild->insert($cInfo);
-          $children[] = $cInfo;
-        }
-        $info['children'] = $children;
+        //   $addmemberchild->insert($cInfo);
+        //   $children[] = $cInfo;
+        // }
+        // $info['children'] = $children;
+        $this->addUpdateChildren($_POST['children'], $memID);
 
         // $this->redirect("memberlist");
         $arrayMsg = [
@@ -197,6 +237,40 @@
       
       echo json_encode($arrayMsg);
       exit;
+    }
+
+    public function addUpdateChildren($children, $memID){
+      //!! This code will make the $_POST['children'] a perfect array. So that you can count it correctly.
+      $cntChildren = json_decode($children, true);
+      
+      $addmemberchild = $this->loadModel('memberchildren');
+      $children = [];
+
+      foreach ($cntChildren as $key => $child) {
+        $cInfo = []; // <-- important RESET the array!
+
+        if(empty($child['cid'])){
+          $childID = $addmemberchild->createrecordid('GCF-MC', 'memberchildren', 'GCF-MC', 'childID');
+          // Access each child's name and age
+          $cInfo['childID'] = $childID;
+          $cInfo['memberid'] = $memID;
+          $cInfo['childname'] = $child['name'];
+          $cInfo['childage'] = $child['age'];
+          
+          $addmemberchild->insert($cInfo);
+          $children[] = $cInfo;
+        }
+        else{
+          $cInfo['id'] = $child['cid'];
+          $cInfo['childname'] = $child['name'];
+          $cInfo['childage'] = $child['age'];
+          
+          $addmemberchild->update($child['cid'], $cInfo);
+          $children[] = $cInfo;
+        }
+      }
+      
+      return $children;
     }
 
     public function updatemember() {
@@ -277,6 +351,8 @@
 
         $updateResult = $updateMember->update($_POST['member_id'], $updateInfo);
 
+        $this->addUpdateChildren($_POST['children'], $oldDataResult[0]->memberid);
+
         $changedOld = [];
         $changedNew = [];
 
@@ -323,6 +399,13 @@
       $updateInfoStatus['memberstatus'] = $_POST['memstatus'];
 
       $addResult = $updateStatus->update($_POST['defaultID'], $updateInfoStatus);
+    }
+
+    function getMemberChildren() {
+      $memberChildren = $this->loadModel('memberchildren');
+
+      $dataResult = $memberChildren->where('memberid', $_POST['memberId']);
+      echo json_encode($dataResult);
     }
 
   }

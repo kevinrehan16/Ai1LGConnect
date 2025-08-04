@@ -12,7 +12,7 @@
         <div class="sticky-top" style="z-index:0;">
           <div class="card mb-4">
             <div class="card-body shadow-sm text-center">
-              <img src="" alt="avatar" class="img-thumbnail rounded-circle img-fluid" style="width: 195px; height: 195px;" id="srcpicture">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif" alt="avatar" loading="lazy" class="img-thumbnail rounded-circle img-fluid mb-2" style="width: 195px; height: 195px;" id="srcpicture">
               <h5 class="my-1" id="lblfullname">John Smith</h5>
               <p class="text-black-50 mb-1" id="lbloccupation">Full Stack Developer</p>
               <!-- <p class="text-black-50 mb-4" id="lbladdress">Bay Area, San Francisco, CA</p>

@@ -23,7 +23,7 @@
       <ul class="side-dropdown <?php echo isset($_GET['url']) && ($_GET['url'] === 'memberlist' || $_GET['url'] === 'newmemberslist' || $_GET['url'] === 'pastorslist' || $_GET['url'] === 'elderlist'  || $_GET['url'] === 'deaconlist') ? 'show' : ''; ?>">
         <li><a href="<?=ROOT_PUBLIC?>/memberlist" class="<?php echo isset($_GET['url']) && ($_GET['url'] === 'memberlist') ? 'active' : ''; ?>">All Members</a></li>
         <!-- <li><a href="<?=ROOT_PUBLIC?>/newmemberslist" class="<?php echo isset($_GET['url']) && ($_GET['url'] === 'newmemberslist') ? 'active' : ''; ?>">New Members</a></li> -->
-        <li><a href="<?=ROOT_PUBLIC?>/pastorslist" class="<?php echo isset($_GET['url']) && ($_GET['url'] === 'pastorslist') ? 'active' : ''; ?>">Pastors</a></li>
+        <li><a href="<?=ROOT_PUBLIC?>/pastorslist" class="<?php echo isset($_GET['url']) && ($_GET['url'] === 'pastorslist') ? 'active' : ''; ?>">Pastoral Staff</a></li>
         <li><a href="<?=ROOT_PUBLIC?>/elderlist" class="<?php echo isset($_GET['url']) && ($_GET['url'] === 'elderlist') ? 'active' : ''; ?>">Elders</a></li>
         <li><a href="<?=ROOT_PUBLIC?>/deaconlist" class="<?php echo isset($_GET['url']) && ($_GET['url'] === 'deaconlist') ? 'active' : ''; ?>">Deacons</a></li>
       </ul>

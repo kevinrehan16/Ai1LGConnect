@@ -114,7 +114,7 @@
                     </div>
                     <div class="container mt-1">
                       <input type="file" id="fileInput" name="fileInput" onchange="showimg();" class="custom-file-input">
-                      <label for="fileInput" class="custom-file-button"><i class='bx bx-paperclip'></i> Choose file</label>
+                      <label for="fileInput" class="custom-file-button"><i class='bx bx-paperclip'></i> Upload photo</label>
                     </div>
                   </div>
                 </div>

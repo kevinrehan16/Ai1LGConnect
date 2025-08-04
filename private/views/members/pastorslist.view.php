@@ -1,10 +1,10 @@
 <!-- MAIN -->
 <main>
-  <h1 class="title">PASTORS</h1>
+  <h1 class="title">PASTORAL STAFF</h1>
   <ul class="breadcrumbs">
     <li><a href="javascript::void(0)">Home</a></li>
     <li class="divider">/</li>
-    <li><a href="javascript::void(0)" class="active">Pastors</a></li>
+    <li><a href="javascript::void(0)" class="active">Pastoral Staff</a></li>
   </ul>
   <div class="info-data">
     <div class="row">

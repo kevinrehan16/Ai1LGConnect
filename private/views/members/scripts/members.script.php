@@ -168,6 +168,9 @@
       }
     });
 
+    var srchbaptizeddatefrom = $("#srchbaptizeddatefrom").val();
+    var srchbaptizeddateto = $("#srchbaptizeddateto").val();
+
     var memberStatus = "";
     $(".srchMemStatus:checked").each(function(){
       if($(this).val() != "All"){
@@ -180,16 +183,16 @@
     var chkbxNewMember = $("#chkbxNewMember").val();
 
     var ggLeader = '';
-    var ggTimothy = '';
+    // var ggTimothy = '';
     var ggMember = '';
     var ggNoGg = '';
     $(".ggstatus-active").each(function(){
       if(this.id == "ggLeader"){
         ggLeader = "Yes";
       }
-      else if(this.id == "ggTimothy"){
-        ggTimothy = "Yes";
-      }
+      // else if(this.id == "ggTimothy"){
+      //   ggTimothy = "Yes";
+      // }
       else if(this.id == "ggMember"){
         ggMember = "Yes";
       }
@@ -214,12 +217,14 @@
         srchMembershipdatefrom: srchMembershipdatefrom,
         srchMembershipdateto: srchMembershipdateto,
         baptizedImmersion: baptizedImmersion,
+        srchbaptizeddatefrom: srchbaptizeddatefrom,
+        srchbaptizeddateto: srchbaptizeddateto,
         memberStatus: memberStatus,
         srchbdaydatefrom: srchbdaydatefrom,
         srchbdaydateto: srchbdaydateto,
         chkbxNewMember: chkbxNewMember,
         ggLeader: ggLeader,
-        ggTimothy: ggTimothy,
+        // ggTimothy: ggTimothy,
         ggMember: ggMember,
         ggNoGg: ggNoGg
       },
@@ -236,7 +241,7 @@
           $.each(data, function(index, memberInfo){
             // console.log(memberInfo);
             
-            var memPicture = '';
+            var memPicture = 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif';
             if(memberInfo.picture != ""){
               memPicture = "<?=ROOT_PRIVATE?>/views/memberimage/"+escapeHtml(memberInfo.memberid)+"/"+escapeHtml(memberInfo.picture)+"";
             }
@@ -249,10 +254,10 @@
             if(memberInfo.ggLeader != ''){
               leaderIcon = "<i class='bx bxs-user-pin text-info custom-tooltip-bottom' style='cursor: pointer;'><span class='tooltip-text-bottom'>Leader</span></i>";
             }
-            var timothyIcon = '';
-            if(memberInfo.ggTimothy != ''){
-              timothyIcon = "<i class='bx bxs-user-pin text-success custom-tooltip-bottom' style='cursor: pointer;'><span class='tooltip-text-bottom'>Timothy</span></i>";
-            }
+            // var timothyIcon = '';
+            // if(memberInfo.ggTimothy != ''){
+            //   timothyIcon = "<i class='bx bxs-user-pin text-success custom-tooltip-bottom' style='cursor: pointer;'><span class='tooltip-text-bottom'>Timothy</span></i>";
+            // }
             var memberIcon = '';
             if(memberInfo.ggMember != ''){
               memberIcon = "<i class='bx bxs-user-pin text-warning custom-tooltip-bottom' style='cursor: pointer;'><span class='tooltip-text-bottom'>Member</span></i>";
@@ -276,7 +281,7 @@
                               "<input type='checkbox' id='chk-"+escapeHtml(memberInfo.id)+"' data-toggle='toggle' data-onstyle='success' data-offstyle='danger' data-size='xs' " + statusClass + " data-on='Active' data-off='Inactive' data-style='ios' value='" + statusLabel + "' onchange='updateMemberStatus(\""+escapeHtml(memberInfo.id)+"\", \""+mfullname+"\", \""+escapeHtml(memberInfo.memberstatus)+"\")'>"+
                             "</td>"+
                             "<td>"+escapeHtml(memberInfo.memberid)+"</td>"+
-                            "<td><img src='"+memPicture+"' alt='Image 1' loading='lazy'> &nbsp;<a href='<?=ROOT_PUBLIC?>/profilelist/"+escapeHtml(memberInfo.id)+"'>"+escapeHtml(memberInfo.firstname)+" "+escapeHtml(memberInfo.lastname)+"</a><span style='float: right;'>"+leaderIcon+""+timothyIcon+""+memberIcon+"</span></td>"+
+                            "<td><img src='"+memPicture+"' alt='Image 1' loading='lazy'> &nbsp;<a href='<?=ROOT_PUBLIC?>/profilelist/"+escapeHtml(memberInfo.id)+"'>"+escapeHtml(memberInfo.firstname)+" "+escapeHtml(memberInfo.lastname)+"</a><span style='float: right;'>"+leaderIcon+""+memberIcon+"</span></td>"+
                             "<td>"+escapeHtml(memberInfo.nickname)+"</td>"+
                             "<td>"+escapeHtml(memberInfo.gender)+"</td>"+
                             "<td>"+escapeHtml(memberInfo.lifestage)+"</td>"+
@@ -284,7 +289,7 @@
                             "<td>"+escapeHtml(memberInfo.emailaddress)+"</td>"+
                             "<td class='td-btn'>"+
                               "<i class='btn-icon bx bxs-edit' title='Edit information' onclick='editInformation(\""+escapeHtml(memberInfo.id)+"\");'></i>"+
-                              "<i class='btn-icon bx bx-notepad' title='View logs' onClick='viewLogs(\""+escapeHtml(memberInfo.memberid)+"\");'></i>"+
+                              "<i class='btn-icon bx bx-notepad' title='View Audit Trail' onClick='viewLogs(\""+escapeHtml(memberInfo.memberid)+"\");'></i>"+
                               // "<i class='btn-icon bx bx-task-x' title='Remove'></i>"+
                             "</td>"+
                           "</tr>";
@@ -372,6 +377,12 @@
   }
 
   function addnewmember(){
+    $(".custom-file-button").html("<i class='bx bx-paperclip'></i>  Upload photo");
+    $("#members-form .form-control").val('');
+    $("#members-form .form-select").val('');
+    $("#members-form input[type='radio']").prop('checked', false);
+    $("#members-form input[type='checkbox']").prop('checked', false).val("No");
+    $("#imagefileInput").prop("src", "https://heatherchristenaschmidt.com/wp-content/uploads/2011/09/facebook_no_profile_pic2-jpg.gif");
     $("#memberstatus").val("Active");
     $("#member_id").remove();
     $("#btnSaveMember").prop("disabled", false);
@@ -452,12 +463,14 @@
     var childrenData = [];
     // Loop through the children table rows
     $("#tblChildren tr").each(function() {
+        var childId = $(this).find('.child-id').val();
         var childName = $(this).find('.child-name').val();
         var childAge = $(this).find('.child-age').val();
 
         if (childName && childAge) {
             // Push the child data into the childrenData array
             childrenData.push({
+                cid: childId,
                 name: childName,
                 age: childAge
             });
@@ -485,7 +498,7 @@
           .removeClass("bx");
         },
         success:function(data){
-          // console.log(data);
+          console.log(data);
           
           if(data.statusMsg == "Success"){
             Swal.fire({
@@ -531,7 +544,7 @@
     }
 
     $("#tblChildren").append("<tr id='children-"+formCount+"'>"+
-                              "<td><input type='text' name='childname[]' class='form-control child-name input-sm m-0 txt_firstCapital'></td>"+
+                              "<td><input type='hidden' name='childid[]' class='child-id'><input type='text' name='childname[]' class='form-control child-name input-sm m-0 txt_firstCapital'></td>"+
                               "<td><input type='text' name='childage[]' class='form-control child-age input-sm m-0 numonly text-center' maxlength='3'></td>"+
                               "<td><button type='button' class='btn btn-danger btn-md d-flex align-items-center justify-content-center gap-1' onclick='removeChildForm(\"children-"+formCount+"\");'><span class='bx bx-trash'></span></button></td>"+
                             "</tr>");
@@ -624,10 +637,12 @@
     var memPicture = '';
     if(memInfo.picture != ""){
       memPicture = "<?=ROOT_PRIVATE?>/views/memberimage/"+memInfo.memberid+"/"+memInfo.picture+"";
+      $(".custom-file-button").html("<i class='bx bx-paperclip'></i>  Change photo");
     }
     else{
       // Placeholder image with the letter
-      memPicture = "https://ui-avatars.com/api/?name="+memInfo.firstname+"+"+memInfo.lastname; 
+      memPicture = "https://ui-avatars.com/api/?name="+memInfo.firstname+"+"+memInfo.lastname;
+      $(".custom-file-button").html("<i class='bx bx-paperclip'></i>  Upload photo");
     }
     $("#imagefileInput").attr("src", memPicture);
 
@@ -647,7 +662,7 @@
     $("#industry").val(memInfo.industry);
 
     $("#txtwhenreceive").val(memInfo.receivedJesus);
-    $("#txtwhenbaptized").val(memInfo.baptizedate);
+    $("#txtwhenbaptized").val(memInfo.baptizeddate);
     $(".baptizedwhen[value='"+memInfo.baptizedImmersion+"']").prop("checked", true);
     $("#txtspiritualgifts").val(memInfo.spiritualgift);
     
@@ -661,6 +676,38 @@
     $("#forMembership").prop("checked", memInfo.recForMembership === 'Yes' ? true : false).val(memInfo.recForMembership);
     $("#txtconducteddate").val(memInfo.membershipdate);
     $("#txtconductedcomment").val(memInfo.comment);
+
+    var tblChildren = "";
+    $.ajax({
+      type: 'POST',
+      url: '<?=ROOT_PUBLIC?>/memberlist/getMemberChildren',
+      data: {memberId: memInfo.memberid},
+      dataType: 'json',
+      success: function(data){
+        console.log(data);
+
+        $.each(data, function(index, child) {
+          tblChildren += `<tr id="children-${index + 1}">
+            <td>
+              <input type="hidden" name="childid[]" value="${child.id}" class="child-id">
+              <input type="text" name="childname[]" value="${child.childname}" class="form-control child-name input-sm m-0 txt_firstCapital">
+            </td>
+            <td>
+              <input type="text" name="childage[]" value="${child.childage}" class="form-control child-age input-sm m-0 numonly text-center" maxlength="3">
+            </td>
+            <td>
+              <button type="button" class="btn btn-danger btn-md d-flex align-items-center justify-content-center gap-1"
+                onclick="removeChildForm('children-${index + 1}')">
+                <span class="bx bx-trash"></span>
+              </button>
+            </td>
+          </tr>`;
+        });
+
+        $("#tblChildren").html(tblChildren);
+
+      }
+    })
 
     openModal("modalmemberinformation");
   }

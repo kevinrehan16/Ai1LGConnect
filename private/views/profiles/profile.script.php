@@ -9,7 +9,13 @@
         $("#group-list-info .list-group-item").removeClass("active");
         $(this).addClass("active");
       });
-    })
+    });
+
+    $("#group-list-info .list-group-item").each(function(){
+      $(this).click(function(){
+        $("main").animate({ scrollTop: 50 }, 300); // Or any value > 0
+      });
+    });
   });
 
   function getInformation(){
