@@ -32,6 +32,7 @@
       $gg = $this->loadModel('member');
       $ggEditInfo['id'] = $_POST['defaultid'];
       $ggEditInfo['memberLevel'] = 'Level 4';
+      $ggEditInfo['ggMember'] = 'Yes';
       $ggEditInfo['memberLvlTitle'] = 'GG Member';
 
       $updateResult = $gg->update($ggEditInfo['defaultid'], $ggEditInfo);

@@ -11,24 +11,24 @@
             <div class="row mb-3">
               <div class="col-md-8">
                 <label>Growth Group Name</label>
-                <input type="text" class="form-control input-md form-control-md txt_firstCapital" id="txtgrowthgroupname">
+                <input type="text" class="form-control input-md form-control-md txt_firstCapital inputant" id="txtgrowthgroupname">
               </div>
               <div class="col-md-4">
                 <label>Abbreviation</label>
-                <input type="text" class="form-control input-md form-control-md txtuppercase" id="txtggabbreviation">
+                <input type="text" class="form-control input-md form-control-md txtuppercase inputant" id="txtggabbreviation">
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-12">
                 <label>Growth Group Leader</label>
-                <input type="text" class="form-control input-md form-control-md txtuppercase" id="txtggleader" readonly style="cursor: pointer;" onclick="selectLeader();">
-                <input type="text" class="form-control input-md form-control-md d-none" id="txtggleaderid" disabled>
+                <input type="text" class="form-control input-md form-control-md txtuppercase inputant" id="txtggleader" readonly style="cursor: pointer;" onclick="selectLeader();">
+                <input type="text" class="form-control input-md form-control-md d-none inputant" id="txtggleaderid" disabled>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-8">
                 <label>Day Schedule</label>
-                <select class="form-select input-md" id="txtggday">
+                <select class="form-select input-md inputant" id="txtggday">
                   <option value="">--Select Day Schedule--</option>
                   <option value="Sunday">Sunday</option>
                   <option value="Monday">Monday</option>
@@ -41,7 +41,7 @@
               </div>
               <div class="col-md-4">
                 <label>Time Schedule</label>
-                <input type="time" class="form-control input-md form-control-md" id="txtggtime">
+                <input type="time" class="form-control input-md form-control-md inputant" id="txtggtime">
               </div>
             </div>
           </div>

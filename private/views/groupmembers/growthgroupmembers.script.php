@@ -105,7 +105,7 @@
 
       var memPicture = '';
       if(growthgroupmembersarray[arrayIndex].memberid[cnt].picture != ""){
-        memPicture = "<?=ROOT_PRIVATE?>/views/memberimage/"+growthgroupmembersarray[arrayIndex].memberid[cnt].ggMid+"/"+growthgroupmembersarray[arrayIndex].memberid[cnt].picture+"";
+        memPicture = "<?=ROOT_PRIVATE?>/views/memberimage/"+growthgroupmembersarray[arrayIndex].memberid[cnt].ggmemberid+"/"+growthgroupmembersarray[arrayIndex].memberid[cnt].picture+"";
       }
       else{
         // Placeholder image with the letter

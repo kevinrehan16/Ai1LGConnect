@@ -41,8 +41,8 @@
 
       $pastor = $this->loadModel('member');
       $pastorEditInfo['id'] = $_POST['defaultid'];
-      $pastorEditInfo['memberLevel'] = 'Level 2';
-      $pastorEditInfo['memberLvlTitle'] = 'Pastor';
+      $pastorEditInfo['memberLevel'] = $pastorInfo['pastorlevel'] == "Senior Pastor" ? 'Level 1' : 'Level 2';
+      $pastorEditInfo['memberLvlTitle'] = $pastorInfo['pastorlevel'];
 
       $updateResult = $pastor->update($pastorEditInfo['defaultid'], $pastorEditInfo);
 

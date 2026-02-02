@@ -122,6 +122,16 @@
   }
 
   function selectMember(index){
+
+    var memPicture = "";
+    if(members[index].picture == ""){
+      memPicture = "https://ui-avatars.com/api/?name="+members[index].firstname+"+"+members[index].lastname; 
+    }else{
+      memPicture = "<?=ROOT_PRIVATE?>/views/memberimage/"+members[index].memberid+"/"+members[index].picture+"";
+    }
+    
+    $("#nickname").text(members[index].nickname);
+    $("#imagefileInput").prop("src", memPicture);
     $("#defaultid").val(members[index].id);
     $("#memberid").val(members[index].memberid);
     $("#fullname").val(members[index].firstname + " " + members[index].lastname);

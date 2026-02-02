@@ -1,5 +1,6 @@
 <script>
-  $dataInformation = [];
+  var dataInformation = [];
+  var dataGGAsLeader = [];
 
   $(function(){
     getInformation();
@@ -13,7 +14,7 @@
 
     $("#group-list-info .list-group-item").each(function(){
       $(this).click(function(){
-        $("main").animate({ scrollTop: 50 }, 300); // Or any value > 0
+        $("main").animate({ scrollTop: 0 }, 300); // Or any value > 0
       });
     });
   });
@@ -46,7 +47,7 @@
 
         var fullName = dataInformation[0].firstname + ' ' + dataInformation[0].lastname;
         $("#lblfullname").text(fullName);
-        $("#lbloccupation").text(dataInformation[0].occupation);
+        $("#lbltitle").text(dataInformation[0].occupation);
         $("#lbladdress").text(dataInformation[0].barangay + ', ' + dataInformation[0].city);
 
         $("#lblnickname").text(dataInformation[0].nickname);
@@ -98,8 +99,73 @@
         $("#lblpurposereg").text(dataInformation[0].purposereg);
         $("#lblpreviouschurch").text(dataInformation[0].prevchurch);
         $("#lblchurchaffiliation").text(dataInformation[0].churchaffiliation);
+        // call ggAsALeader after data is loaded
+        ggAsALeader();
       }
     });
-    
+  }
+
+  function ggAsALeader(){
+    if (!Array.isArray(dataInformation) || dataInformation.length === 0) return;
+    var ggLeaderId = dataInformation[0].memberid;
+
+    $.ajax({
+      type: 'POST',
+      url: '<?=ROOT_PUBLIC?>/profilelist/growthgroupasaleader',
+      dataType: 'json',
+      data: {
+        memberId: ggLeaderId,
+      },
+      success: function(data) {
+        // console.log(data);
+        dataGGAsLeader = data;
+      },
+      complete: function(){
+        if(dataGGAsLeader.length > 0){
+          for(var i = 0; i < dataGGAsLeader.length; i++){
+            var ggGroup = dataGGAsLeader[i];
+            
+            var memberList = "";
+            for(var j = 0; j < ggGroup.members.length; j++){
+              var member = ggGroup.members[j];
+              memberList += "<tr>"+
+                              "<td><img src='<?=ROOT_PRIVATE?>/views/memberimage/"+member.memberid+"/"+member.picture+"' alt='avatar' loading='lazy' class='img-thumbnail rounded-circle' style='width: 30px; height: 30px;'> &nbsp; "+member.firstname+" "+member.lastname+"</td>"+
+                            "</tr>";
+            }
+
+            var ggCard = "<div class='col-md-4'>"+
+                          "<div class='card mb-3'>"+
+                            "<div class='card-header'>"+
+                              "<i class='fas fa-user text-success'></i> "+ggGroup.growthgroupname+" ("+ggGroup.shortname+")"+
+                            "</div>"+
+                            "<div class='card-body shadow-sm'>"+
+                              "<table class='table table-sm'>"+
+                                "<thead>"+
+                                  "<tr>"+
+                                    "<th>Members</th>"+
+                                  "</tr>"+
+                                "</thead>"+
+                                "<tbody>"+
+                                  memberList +
+                                "</tbody>"+
+                              "</table>"+
+                            "</div>"+
+                          "</div>"+
+                        "</div>";
+
+            $("#ggAsALeader").append(ggCard);
+          } 
+        }
+        else{
+          $("#ggAsALeader").html(`
+            <div class="col-md-12">
+              <div class="alert alert-danger mb-0" role="alert">
+                <i class='bx bx-info-circle'></i> No record found...
+              </div>
+            </div>
+          `);
+        }
+      }
+    });
   }
 </script>

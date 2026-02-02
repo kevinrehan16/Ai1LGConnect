@@ -58,7 +58,7 @@
                 <input type="password" class="form-control input-md form-control-md txtpass" id="txtcurrpass" maxlength="8">
               </div>
             </div>
-            <hr>
+            <hr class="dotted-line">
             <div class="row mb-2">
               <div class="col-md-12">
                 <label>New Password</label>

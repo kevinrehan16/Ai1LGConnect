@@ -38,10 +38,10 @@
         txtSearchInformation: txtSearchGGInformation
       },
       beforeSend: function(){
-        $("#tblgrowthgroup").html("<tr><td class='text-center' colspan='4'>Loading Records...</td></tr>");
+        $("#tblgrowthgroup").html("<tr><td class='text-center' colspan='5'>Loading Records...</td></tr>");
       },
       success: function(data){
-        console.log(data);
+        // console.log(data);
 
         growthgroup = data;
 
@@ -71,7 +71,7 @@
                         "</tr>";
           });
         }else{
-          dataRecord = "<tr><td class='text-center' colspan='4'>No Record Found...</td></tr>"
+          dataRecord = "<tr><td class='text-center' colspan='5'>No Record Found...</td></tr>"
         }
 
         $("#tblgrowthgroup").html(dataRecord);
@@ -155,6 +155,7 @@
       complete: function(){
         cancelgrowthgroup();
         getGrowthGroup();
+        $(".inputant").val("");
       }
     });
   }

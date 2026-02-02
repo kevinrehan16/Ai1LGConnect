@@ -45,6 +45,11 @@ body {
 a {
   text-decoration: none !important;
 }
+.dotted-line {
+  border: none;
+  border-top: 2px dotted #333;
+  margin: 20px 0;
+}
 
 ul.ul-audit {
   margin-bottom: 0;

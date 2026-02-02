@@ -17,7 +17,7 @@
                   <img id="imageLeader" src="https://www.caspianpolicy.org/no-image.png" class="img-fluid img-thumbnail rounded-0" alt="Cluster Leader Photo" height="200px;">
                   <div class="card-body text-center">
                     <h6 class="mb-0" id="clusterleadername">Kevin Macandog</h6>
-                    <small><span class="grpName">Cluster</span> Mentor</small>
+                    <small><span class="grpName">Cluster</span> Leader</small>
                   </div>
                 </div>
               </div>

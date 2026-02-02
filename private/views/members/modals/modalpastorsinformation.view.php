@@ -15,7 +15,7 @@
                   <div class="circle">
                     <img id="imagefileInput" src="https://heatherchristenaschmidt.com/wp-content/uploads/2011/09/facebook_no_profile_pic2-jpg.gif" class="rounded-circle img-fluid img-thumbnail" alt="Member photo">
                   </div>
-                  <h5 id="nickname">Kevs</h5>
+                  <h5 id="nickname">---</h5>
                 </div>
               </div>
             </div>
@@ -35,7 +35,7 @@
               <label for="" class="col-md-4 mt-2">Full Name</label>
               <div class="col-md-8">
                 <div class="input-group input-click" onclick="openModal('modalmemberslist')">
-                  <input type="text" class="form-control input-md" name="defaultid" id="defaultid">
+                  <input type="hidden" class="form-control input-md" name="defaultid" id="defaultid">
                   <input type="hidden" class="form-control input-md" name="memberid" id="memberid">
                   <input type="text" class="form-control input-md input-click" name="fullname" id="fullname" readonly="true" placeholder="Click here...">
                   <span class="input-group-text"><i class="bx bx-search-alt-2"></i></span>

@@ -87,7 +87,7 @@
                   <div class="col-md-4">
                     <div class="mb-3">
                       <label for="lifestage" class="form-label">Life Stage</label>
-                      <select class="form-select" aria-label="Default select example" id="lifestage" name="lifestage">
+                      <select class="form-select inputant" aria-label="Default select example" data-label="Life Stage" id="lifestage" name="lifestage">
                         <option value="">--Select--</option>
                         <option value="Single">Single</option>
                         <option value="Married">Married</option>

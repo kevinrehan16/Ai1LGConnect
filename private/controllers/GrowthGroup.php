@@ -18,6 +18,10 @@
     }
 
     function savenewgrowthgroup(){
+      $memInfo = $this->loadModel('member');
+      $dataResult = $memInfo->where('memberid', $_POST['txtggleaderid']);
+      $levelInfo = str_replace("Level ", "", $dataResult[0]->memberLevel);
+
       $growthgroups = $this->loadModel('GrowthGroupGG');
       $growthgroupid = $growthgroups->createrecordid('GCF-GG', 'growthgroups', 'GCF-GG', 'growthgroupid');
 
@@ -29,11 +33,12 @@
       $ggAddinfo['timeschedule'] = $_POST['txtggtime'];
       $growthgroups->insert($ggAddinfo);
 
-      $gg = $this->loadModel('member');
-      $ggEditInfo['id'] = $_POST['defaultID'];
-      $ggEditInfo['memberLevel'] = 'Level 3';
-      $ggEditInfo['memberLvlTitle'] = 'GG Leader';
-
-      $updateResult = $gg->update($_POST['defaultID'], $ggEditInfo);
+      if($levelInfo >= 3){
+        $ggEditInfo['id'] = $_POST['defaultID'];
+        $ggEditInfo['memberLevel'] = 'Level 3';
+        $ggEditInfo['ggLeader'] = 'Yes';
+        $ggEditInfo['memberLvlTitle'] = 'GG Leader';
+        $updateResult = $memInfo->update($_POST['defaultID'], $ggEditInfo);
+      }
     }
   }
