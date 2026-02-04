@@ -40,4 +40,21 @@
 
       echo json_encode($ggAsLeader);
     }
+
+    function growthgroupasamember(){
+      $ggAsMember = array();
+
+      $ggMembers = $this->loadModel('GrowthGroupGGMember');
+      $dataGgList = $ggMembers->where('ggmemberid', $_POST['memberId'], '=');
+
+      $gg = $this->loadModel('GGMembers');
+      foreach($dataGgList as $ggGgname){
+        $dataGgDetails = $gg->where('growthgroupid', $ggGgname->growthgroupid, '=');
+
+        $ggAsMember[] = $dataGgDetails[0];
+      }
+
+      echo json_encode($ggAsMember);
+
+    }
   }

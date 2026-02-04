@@ -583,6 +583,13 @@ main .info-data .card-form {
   text-transform: uppercase;
 }
 
+.card-header-info {
+  background-color: var(--cyan) !important;
+  color: var(--light) !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+}
+
 .modal-xxl {
   max-width: calc(100vw - 100px);
 }

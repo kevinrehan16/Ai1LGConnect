@@ -30,11 +30,16 @@
       $addResult = $ggMember->insert($ggMemberInfo);
 
       $gg = $this->loadModel('member');
-      $ggEditInfo['id'] = $_POST['defaultid'];
-      $ggEditInfo['memberLevel'] = 'Level 4';
-      $ggEditInfo['ggMember'] = 'Yes';
-      $ggEditInfo['memberLvlTitle'] = 'GG Member';
+      $dataResult = $gg->where('memberid', $_POST['memberid']);
+      $levelInfo = str_replace("Level ", "", $dataResult[0]->memberLevel);
 
+
+      $ggEditInfo['id'] = $_POST['defaultid'];
+      $ggEditInfo['ggMember'] = 'Yes';
+      if($levelInfo >= 4){
+        $ggEditInfo['memberLevel'] = 'Level 4';
+        $ggEditInfo['memberLvlTitle'] = 'GG Member';
+      }
       $updateResult = $gg->update($ggEditInfo['defaultid'], $ggEditInfo);
 
     }

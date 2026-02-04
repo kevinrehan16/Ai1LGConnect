@@ -33,12 +33,12 @@
       $ggAddinfo['timeschedule'] = $_POST['txtggtime'];
       $growthgroups->insert($ggAddinfo);
 
+      $ggEditInfo['id'] = $_POST['defaultID'];
+      $ggEditInfo['ggLeader'] = 'Yes';
       if($levelInfo >= 3){
-        $ggEditInfo['id'] = $_POST['defaultID'];
         $ggEditInfo['memberLevel'] = 'Level 3';
-        $ggEditInfo['ggLeader'] = 'Yes';
         $ggEditInfo['memberLvlTitle'] = 'GG Leader';
-        $updateResult = $memInfo->update($_POST['defaultID'], $ggEditInfo);
       }
+      $updateResult = $memInfo->update($_POST['defaultID'], $ggEditInfo);
     }
   }

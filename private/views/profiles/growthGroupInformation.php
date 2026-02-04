@@ -16,8 +16,8 @@
     <i class="fas fa-users text-success"></i>Growth Group as a Member
   </div>
   <div class="card-body shadow-sm">
-    <div class="alert alert-danger mb-0" role="alert">
-      <i class='bx bx-info-circle'></i> No record found...
+    <div class="row" id="ggAsAMember">
+
     </div>
   </div>
 </div>

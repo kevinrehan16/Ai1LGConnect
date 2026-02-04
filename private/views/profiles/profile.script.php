@@ -1,6 +1,7 @@
 <script>
   var dataInformation = [];
   var dataGGAsLeader = [];
+  var dataGGAsMember = [];
 
   $(function(){
     getInformation();
@@ -101,6 +102,7 @@
         $("#lblchurchaffiliation").text(dataInformation[0].churchaffiliation);
         // call ggAsALeader after data is loaded
         ggAsALeader();
+        ggAsAMember();
       }
     });
   }
@@ -126,23 +128,27 @@
             var ggGroup = dataGGAsLeader[i];
             
             var memberList = "";
-            for(var j = 0; j < ggGroup.members.length; j++){
-              var member = ggGroup.members[j];
-              memberList += "<tr>"+
-                              "<td><img src='<?=ROOT_PRIVATE?>/views/memberimage/"+member.memberid+"/"+member.picture+"' alt='avatar' loading='lazy' class='img-thumbnail rounded-circle' style='width: 30px; height: 30px;'> &nbsp; "+member.firstname+" "+member.lastname+"</td>"+
-                            "</tr>";
-            }
+            if(ggGroup.members.length > 0){
+              for(var j = 0; j < ggGroup.members.length; j++){
+                var member = ggGroup.members[j];
+                memberList += "<tr>"+
+                                "<td><img src='<?=ROOT_PRIVATE?>/views/memberimage/"+member.memberid+"/"+member.picture+"' alt='avatar' loading='lazy' class='img-thumbnail rounded-circle' style='width: 30px; height: 30px;'> &nbsp; "+member.firstname+" "+member.lastname+"</td>"+
+                              "</tr>";
+              }
+          }else{
+              memberList = "<tr><td>No members found.</td></tr>";
+          }
 
-            var ggCard = "<div class='col-md-4'>"+
+            var ggCard = "<div class='col-md-6'>"+
                           "<div class='card mb-3'>"+
-                            "<div class='card-header'>"+
+                            "<div class='card-header-info card-header text-center'>"+
                               "<i class='fas fa-user text-success'></i> "+ggGroup.growthgroupname+" ("+ggGroup.shortname+")"+
                             "</div>"+
-                            "<div class='card-body shadow-sm'>"+
-                              "<table class='table table-sm'>"+
+                            "<div class='card-body shadow-sm p-0'>"+
+                              "<table class='table table-sm mb-0'>"+
                                 "<thead>"+
                                   "<tr>"+
-                                    "<th>Members</th>"+
+                                    "<th class='ps-3'>Members</th>"+
                                   "</tr>"+
                                 "</thead>"+
                                 "<tbody>"+
@@ -162,6 +168,70 @@
               <div class="alert alert-danger mb-0" role="alert">
                 <i class='bx bx-info-circle'></i> No record found...
               </div>
+            </div>
+          `);
+        }
+      }
+    });
+  }
+
+  function ggAsAMember(){
+    // Similar to ggAsALeader function but for Growth Group as a Member
+    if (!Array.isArray(dataInformation) || dataInformation.length === 0) return;
+    var ggMemberId = dataInformation[0].memberid;
+
+    $.ajax({
+      type: 'POST',
+      url: '<?=ROOT_PUBLIC?>/profilelist/growthgroupasamember',
+      dataType: 'json',
+      data: {
+        memberId: ggMemberId,
+      },
+      success: function(data) {
+        // console.log(data);
+        dataGGAsMember = data;
+      },
+      complete: function(){
+        if(dataGGAsMember.length > 0){
+          for(var i = 0; i < dataGGAsMember.length; i++){
+            var ggGroup = dataGGAsMember[i];
+
+            var ggCard = "<div class='col-md-6'>"+
+                          "<div class='card mb-3'>"+
+                            "<div class='card-header-info card-header text-center'>"+
+                              "<i class='fas fa-user text-success'></i>"+ggGroup.growthgroupname+" ("+ggGroup.growthgroupshortname+")"+
+                            "</div>"+
+                            "<div class='card-body shadow-sm p-0'>"+
+                              "<table class='table mb-0'>"+
+                                "<thead>"+
+                                  "<tr>"+
+                                    "<th class='ps-3'>INFORMATION</th>"+
+                                  "</tr>"+
+                                "</thead>"+
+                                "<tbody>"+
+                                  "<tr>"+
+                                    "<td class='p-3 input-click'>"+
+                                      "<img src='<?=ROOT_PRIVATE?>/views/memberimage/"+ggGroup.growthgroupleaderid+"/"+ggGroup.picture+"' alt='avatar' loading='lazy' class='img-thumbnail rounded-circle' style='width: 30px; height: 30px;'> &nbsp; <b>"+ggGroup.firstname+" "+ggGroup.lastname+"</b> - (GG-Leader)"+
+                                      "<hr>"+
+                                      "<div class='d-flex align-items-center justify-content-between'><p><b>Day Schedule</b>: "+ggGroup.dayschedule+"</p>"+
+                                      "<p><b>Time Schedule</b>: "+formatTime(ggGroup.timeschedule)+"</p></div>"+
+                                    "</td>"+
+                                  "</tr>"+
+                                "</tbody>"+
+                              "</table>"+
+                            "</div>"+
+                          "</div>"+
+                        "</div>";
+
+            $("#ggAsAMember").append(ggCard);
+          } 
+        }
+        else{
+          $("#ggAsAMember").html(`
+            <div class="col-md-12">
+              <div class="alert alert-danger mb-0" role="alert">
+                <i class='bx bx-info-circle'></i> No record found...
+              </div>  
             </div>
           `);
         }
