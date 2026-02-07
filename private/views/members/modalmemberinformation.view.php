@@ -277,7 +277,22 @@
               <div class="col-md-4">
                 <div class="mb-3">
                   <label for="txtspiritualgifts" class="form-label">What are your Spiritual Gifts?</label>
-                  <textarea cols='5' name="txtspiritualgifts" id="txtspiritualgifts" class="form-control" style="resize: none;"></textarea>
+                  <!-- <textarea cols='5' name="txtspiritualgifts" id="txtspiritualgifts" class="form-control" style="resize: none;"></textarea> -->
+                  <select id="txtspiritualgifts" multiple="multiple" name="txtspiritualgifts">
+                    <option value="Teaching">Teaching</option>
+                    <option value="Faith">Faith</option>
+                    <option value="Praying">Praying</option>
+                    <option value="Encouragement">Encouragement</option>
+                    <option value="Giving">Giving</option>
+                    <option value="Leadership">Leadership</option>
+                    <option value="Mercy">Mercy</option>
+                    <option value="Prophecy">Prophecy</option>
+                    <option value="Service">Service</option>
+                    <option value="Teaching">Teaching</option>
+                    <option value="Discernment">Discernment</option>
+                    <option value="Healing">Healing</option>
+                    <option value="Wisdom">Wisdom</option>
+                  </select>
                 </div>
               </div>
             </div>

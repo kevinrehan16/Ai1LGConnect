@@ -7,6 +7,15 @@
     getAllmembers();
     satellites();
 
+    $('#modalmemberinformation').on('shown.bs.modal', function () {
+      $('#txtspiritualgifts').select2({
+        placeholder: "Select Spiritual Gifts",
+        allowClear: true,
+        dropdownParent: $('#modalmemberinformation'),
+        width: '100%'
+      });
+    });
+
     $('.recfor').each(function(){
       $(this).click(function(){
         if($("#"+ this.id).prop("checked")){
