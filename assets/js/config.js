@@ -1,0 +1,1 @@
+export const PUBLIC_API = "https://localhost/ai1-connect/api/portal/";
