@@ -1,4 +1,11 @@
 import { UsersComponent } from '../../components/users/user.component.js';
+import { LogsComponent } from '../../components/activities/logs/log.components.js';
+import { ErrorsComponent } from '../../components/activities/errors/error.component.js';
+
+import { ListsComponent } from '../../components/users/list/list.component.js';
+import { RolesComponent } from '../../components/users/roles/role.component.js';
+
+import api from './api.js';
 
 
 const { createApp } = Vue;
@@ -23,14 +30,6 @@ const StatisticsComponent = {
 
 const VisualComponent = {
     template: `<div class="card p-3">Visual Page</div>`
-};
-
-const LogsComponent = {
-    template: `<div class="card p-3">Logs Page</div>`
-};
-
-const ErrorsComponent = {
-    template: `<div class="card p-3">Errors Page</div>`
 };
 
 const SetupComponent = {
@@ -129,7 +128,7 @@ createApp({
             this.floatingMenu = null;
 
             // if sidebar expanded, keep submenu open
-            if (!this.isCollapsed && (main === 'dashboard' || main === 'activities')) {
+            if (!this.isCollapsed && (main === 'dashboard' || main === 'activities' || main === 'users')) {
                 this.openMenu = main;
             } else {
                 this.openMenu = null;
@@ -151,7 +150,27 @@ createApp({
 
         isActiveSub(sub) {
             return this.activeSub === sub;
-        }
+        },
+
+        async handleLogout() {
+            if (!confirm("Are you sure you want to logout?")) return;
+            
+            this.loading = true;
+            try {
+                const response = await api.post('auth/logout');
+
+                // console.log(response);
+                if (response.data.status === "success") {
+                    // Clear storage kung kailangan
+                    localStorage.removeItem('sidebarState');
+                    window.location.href = 'views/logout.php';
+                }
+            } catch (error) {
+                console.error("Logout Failed:", error);
+            } finally {
+                this.loading = false;
+            }
+        },
     }
 
 })
@@ -161,5 +180,7 @@ createApp({
 .component('LogsComponent', LogsComponent)
 .component('ErrorsComponent', ErrorsComponent)
 .component('UsersComponent', UsersComponent)
+.component('RolesComponent', RolesComponent)
 .component('SetupComponent', SetupComponent)
+.component('ListsComponent', ListsComponent)
 .mount('#app');

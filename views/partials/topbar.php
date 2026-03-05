@@ -12,7 +12,7 @@
         <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="#">Change Password</a></li>
             <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" href="views/logout.php">Logout</a></li>
+            <li><a class="dropdown-item text-danger" href="javascript:void(0)" @click="handleLogout">Logout</a></li>
         </ul>
     </div>
 

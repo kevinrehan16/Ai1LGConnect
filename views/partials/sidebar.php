@@ -113,7 +113,7 @@
         </div>
 
         <!-- USERS (MAIN MENU DIRECT) -->
-        <div 
+        <!-- <div 
             class="menu-item"
             :class="{'active-main': isActiveMain('users')}"
             @click="switchView('UsersComponent','users')"
@@ -121,6 +121,52 @@
             <div class="menu-left">
                 <i class="bi bi-people"></i>
                 <span v-show="!isCollapsed">Users</span>
+            </div>
+        </div> -->
+
+        <div class="mt-2">
+            <div 
+                class="menu-item"
+                :class="{'active-main': isActiveMain('users')}"
+                @click="toggleMenu('users', $event)"
+            >
+                <div class="menu-left">
+                    <i class="bi bi-people"></i>
+                    <span v-show="!isCollapsed">Users</span>
+                </div>
+                <i 
+                    v-show="!isCollapsed"
+                    class="bi bi-chevron-down arrow"
+                    :class="{'rotate': openMenu === 'users'}"
+                ></i>
+            </div>
+
+            <!-- SUBMENU (expanded normally) -->
+            <div class="submenu-wrapper" :class="{'submenu-open': openMenu === 'users'}">
+                <div class="submenu-item"
+                    @click="switchView('ListsComponent','users','lists')"
+                    :class="{'active-sub': isActiveSub('lists')}">
+                    <i class="bi bi-circle-fill dot"></i> Users List
+                </div>
+                <div class="submenu-item"
+                    @click="switchView('RolesComponent','users','roles')"
+                    :class="{'active-sub': isActiveSub('roles')}">
+                    <i class="bi bi-circle-fill dot"></i> Roles
+                </div>
+            </div>
+
+            <!-- FLOATING SUBMENU (sidebar collapsed) -->
+            <div class="floating-submenu" v-if="floatingMenu === 'users' && isCollapsed" :style="{top: floatingTop + 'px'}">
+                <div class="submenu-item"
+                    @click="switchView('ListsComponent','users','lists')"
+                    :class="{'active-sub': isActiveSub('lists')}">
+                    <i class="bi bi-circle-fill dot"></i> List
+                </div>
+                <div class="submenu-item"
+                    @click="switchView('RolesComponent','users','roles')"
+                    :class="{'active-sub': isActiveSub('roles')}">
+                    <i class="bi bi-circle-fill dot"></i> Roles
+                </div>
             </div>
         </div>
 
