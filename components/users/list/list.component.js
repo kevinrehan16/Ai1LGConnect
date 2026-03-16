@@ -73,7 +73,7 @@ export const ListsComponent = {
                         @user-saved="fetchUsers"
                     >
                     </user-modal-component>
-                    <button class="btn btn-primary" @click="openAddUser">Add User</button>
+                    <button class="btn btn-primary" @click="openAddUser"><i class="bi bi-plus-circle"></i> Add User</button>
                 </div>
                 <table class="table table-bordered table-hover table-striped">
                     <thead class="table-dark">

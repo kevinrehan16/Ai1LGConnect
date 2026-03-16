@@ -31,17 +31,17 @@
                 <div class="submenu-item"
                     @click="switchView('GraphsComponent','dashboard','graphs')"
                     :class="{'active-sub': isActiveSub('graphs')}">
-                    <i class="bi bi-circle-fill dot"></i> Graphs
+                    <i :class="isActiveSub('graphs') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Graphs
                 </div>
                 <div class="submenu-item"
                     @click="switchView('StatisticsComponent','dashboard','statistics')"
                     :class="{'active-sub': isActiveSub('statistics')}">
-                    <i class="bi bi-circle-fill dot"></i> Statistics
+                    <i :class="isActiveSub('statistics') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Statistics
                 </div>
                 <div class="submenu-item"
                     @click="switchView('VisualComponent','dashboard','visual')"
                     :class="{'active-sub': isActiveSub('visual')}">
-                    <i class="bi bi-circle-fill dot"></i> Visual
+                    <i :class="isActiveSub('visual') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Visual
                 </div>
             </div>
 
@@ -50,17 +50,17 @@
                 <div class="submenu-item"
                     @click="switchView('GraphsComponent','dashboard','graphs')"
                     :class="{'active-sub': isActiveSub('graphs')}">
-                    <i class="bi bi-circle-fill dot"></i> Graphs
+                    <i :class="isActiveSub('graphs') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Graphs
                 </div>
                 <div class="submenu-item"
                     @click="switchView('StatisticsComponent','dashboard','statistics')"
                     :class="{'active-sub': isActiveSub('statistics')}">
-                    <i class="bi bi-circle-fill dot"></i> Statistics
+                    <i :class="isActiveSub('statistics') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Statistics
                 </div>
                 <div class="submenu-item"
                     @click="switchView('VisualComponent','dashboard','visual')"
                     :class="{'active-sub': isActiveSub('visual')}">
-                    <i class="bi bi-circle-fill dot"></i> Visual
+                    <i :class="isActiveSub('visual') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Visual
                 </div>
             </div>
         </div>
@@ -88,12 +88,12 @@
                 <div class="submenu-item"
                     @click="switchView('LogsComponent','activities','logs')"
                     :class="{'active-sub': isActiveSub('logs')}">
-                    <i class="bi bi-circle-fill dot"></i> Logs
+                    <i :class="isActiveSub('logs') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Logs
                 </div>
                 <div class="submenu-item"
                     @click="switchView('ErrorsComponent','activities','errors')"
                     :class="{'active-sub': isActiveSub('errors')}">
-                    <i class="bi bi-circle-fill dot"></i> Errors
+                    <i :class="isActiveSub('errors') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Errors
                 </div>
             </div>
 
@@ -102,12 +102,12 @@
                 <div class="submenu-item"
                     @click="switchView('LogsComponent','activities','logs')"
                     :class="{'active-sub': isActiveSub('logs')}">
-                    <i class="bi bi-circle-fill dot"></i> Logs
+                    <i :class="isActiveSub('logs') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Logs
                 </div>
                 <div class="submenu-item"
                     @click="switchView('ErrorsComponent','activities','errors')"
                     :class="{'active-sub': isActiveSub('errors')}">
-                    <i class="bi bi-circle-fill dot"></i> Errors
+                    <i :class="isActiveSub('errors') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Errors
                 </div>
             </div>
         </div>
@@ -146,12 +146,17 @@
                 <div class="submenu-item"
                     @click="switchView('ListsComponent','users','lists')"
                     :class="{'active-sub': isActiveSub('lists')}">
-                    <i class="bi bi-circle-fill dot"></i> Users List
+                    <i :class="isActiveSub('lists') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Users List
                 </div>
                 <div class="submenu-item"
                     @click="switchView('RolesComponent','users','roles')"
                     :class="{'active-sub': isActiveSub('roles')}">
-                    <i class="bi bi-circle-fill dot"></i> Roles
+                    <i :class="isActiveSub('roles') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Roles
+                </div>
+                <div class="submenu-item"
+                    @click="switchView('PermissionsComponent','users','permissions')"
+                    :class="{'active-sub': isActiveSub('permissions')}">
+                    <i :class="isActiveSub('permissions') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Permissions
                 </div>
             </div>
 
@@ -160,25 +165,66 @@
                 <div class="submenu-item"
                     @click="switchView('ListsComponent','users','lists')"
                     :class="{'active-sub': isActiveSub('lists')}">
-                    <i class="bi bi-circle-fill dot"></i> List
+                    <i :class="isActiveSub('lists') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Users List
                 </div>
                 <div class="submenu-item"
                     @click="switchView('RolesComponent','users','roles')"
                     :class="{'active-sub': isActiveSub('roles')}">
-                    <i class="bi bi-circle-fill dot"></i> Roles
+                    <i :class="isActiveSub('roles') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Roles
+                </div>
+                <div class="submenu-item"
+                    @click="switchView('PermissionsComponent','users','permissions')"
+                    :class="{'active-sub': isActiveSub('permissions')}">
+                    <i :class="isActiveSub('permissions') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Permissions
                 </div>
             </div>
         </div>
 
         <!-- SETUP (MAIN MENU DIRECT) -->
-        <div 
-            class="menu-item"
-            :class="{'active-main': isActiveMain('setup')}"
-            @click="switchView('SetupComponent','setup')"
-        >
-            <div class="menu-left">
-                <i class="bi bi-gear"></i>
-                <span v-show="!isCollapsed"> Setup</span>
+        
+        <div class="mt-2">
+            <div 
+                class="menu-item"
+                :class="{'active-main': isActiveMain('setups')}"
+                @click="toggleMenu('setups', $event)"
+            >
+                <div class="menu-left">
+                    <i class="bi bi-gear"></i>
+                    <span v-show="!isCollapsed">Setups</span>
+                </div>
+                <i 
+                    v-show="!isCollapsed"
+                    class="bi bi-chevron-down arrow"
+                    :class="{'rotate': openMenu === 'setups'}"
+                ></i>
+            </div>
+
+            <!-- SUBMENU (expanded normally) -->
+            <div class="submenu-wrapper" :class="{'submenu-open': openMenu === 'setups'}">
+                <div class="submenu-item"
+                    @click="switchView('tvserversComponent','setups','tvservers')"
+                    :class="{'active-sub': isActiveSub('tvservers')}">
+                    <i :class="isActiveSub('tvservers') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> TV Servers
+                </div>
+                <div class="submenu-item"
+                    @click="switchView('siteprofilesComponent','setups','siteprofiles')"
+                    :class="{'active-sub': isActiveSub('siteprofiles')}">
+                    <i :class="isActiveSub('siteprofiles') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Site Profile
+                </div>
+            </div>
+
+            <!-- FLOATING SUBMENU (sidebar collapsed) -->
+            <div class="floating-submenu" v-if="floatingMenu === 'setups' && isCollapsed" :style="{top: floatingTop + 'px'}">
+                <div class="submenu-item"
+                    @click="switchView('tvserversComponent','setups','tvservers')"
+                    :class="{'active-sub': isActiveSub('tvservers')}">
+                    <i :class="isActiveSub('tvservers') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> TV Servers
+                </div>
+                <div class="submenu-item"
+                    @click="switchView('siteprofilesComponent','setups','siteprofiles')"
+                    :class="{'active-sub': isActiveSub('siteprofiles')}">
+                    <i :class="isActiveSub('siteprofiles') ? 'bi bi-circle-fill' : 'bi bi-circle'"></i> Site Profile
+                </div>
             </div>
         </div>
 

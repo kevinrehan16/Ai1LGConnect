@@ -104,6 +104,12 @@ html, body {
     align-items: center;
 }
 
+.card-header.cursor-pointer:hover {
+    background: var(--blue);
+    color: var(--light);
+    cursor: pointer !important;
+}
+
 /*! =========================
    MENU STYLING
 ========================= */

@@ -29,7 +29,7 @@ export const RolesComponent = {
                 // console.log(roles.data);
                 this.loading = false;
             } catch (error) {
-                console.log(error);
+                console.log(error.data);
             }
         },
 
@@ -71,7 +71,7 @@ export const RolesComponent = {
                         @role-saved="fetchRoles"
                     >
                     </role-modal-component>
-                    <button class="btn btn-primary" @click="addRole">Add Role</button>
+                    <button class="btn btn-primary" @click="addRole"><i class="bi bi-plus-circle"></i> Add Role</button>
                 </div>
                 <table class="table table-bordered table-hover table-striped">
                     <thead class="table-dark">

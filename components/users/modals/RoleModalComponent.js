@@ -58,7 +58,7 @@ export const RoleModalComponent = {
         this.$emit('role-saved');
         this.closeRoleModal();
       } catch (error) {
-        console.log(error);
+        console.log(error.data);
       }
     },
     

@@ -1,9 +1,13 @@
-import { UsersComponent } from '../../components/users/user.component.js';
+// import { UsersComponent } from '../../components/users/user.component.js';
 import { LogsComponent } from '../../components/activities/logs/log.components.js';
 import { ErrorsComponent } from '../../components/activities/errors/error.component.js';
 
 import { ListsComponent } from '../../components/users/list/list.component.js';
 import { RolesComponent } from '../../components/users/roles/role.component.js';
+import { PermissionsComponent } from '../../components/users/permissions/permission.component.js';
+
+import { TvserversComponent } from '../../components/setups/tvservers/tvserver.component.js';
+import { SiteprofilesComponent } from '../../components/setups/siteprofiles/siteprofile.component.js';
 
 import api from './api.js';
 
@@ -30,10 +34,6 @@ const StatisticsComponent = {
 
 const VisualComponent = {
     template: `<div class="card p-3">Visual Page</div>`
-};
-
-const SetupComponent = {
-    template: `<div class="card p-3">System Setup</div>`
 };
 
 /* --------------------------
@@ -128,7 +128,7 @@ createApp({
             this.floatingMenu = null;
 
             // if sidebar expanded, keep submenu open
-            if (!this.isCollapsed && (main === 'dashboard' || main === 'activities' || main === 'users')) {
+            if (!this.isCollapsed && (main === 'dashboard' || main === 'activities' || main === 'users' || main === 'setups')) {
                 this.openMenu = main;
             } else {
                 this.openMenu = null;
@@ -179,8 +179,9 @@ createApp({
 .component('VisualComponent', VisualComponent)
 .component('LogsComponent', LogsComponent)
 .component('ErrorsComponent', ErrorsComponent)
-.component('UsersComponent', UsersComponent)
-.component('RolesComponent', RolesComponent)
-.component('SetupComponent', SetupComponent)
 .component('ListsComponent', ListsComponent)
+.component('RolesComponent', RolesComponent)
+.component('PermissionsComponent', PermissionsComponent)
+.component('TvserversComponent', TvserversComponent)
+.component('SiteprofilesComponent', SiteprofilesComponent)
 .mount('#app');
