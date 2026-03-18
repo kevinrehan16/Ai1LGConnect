@@ -261,6 +261,12 @@ html, body {
     to { opacity: 1; transform: translateX(0); }
 }
 
+.table td {
+    text-align: left;       /* horizontal alignment sa left */
+    vertical-align: middle; /* vertical center */
+    padding: 5px;          /* optional, para di masikip */
+}
+
 /* Simple CSS Skeleton Animation */
 .skeleton-row td {
     padding: 15px;

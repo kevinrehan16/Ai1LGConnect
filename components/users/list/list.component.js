@@ -1,11 +1,15 @@
 import api from "../../../assets/js/api";
-import { UserModalComponent } from "../modals/UserModalComponent";
 import { SkeletonComponent } from "../../common/skeleton.component";
+import { PageHeaderComponent } from "../../common/pageheader.component";
+
+import { UserModalComponent } from "../modals/UserModalComponent";
+import { formatDateTime } from "../../../assets/js/formatters";
 
 export const ListsComponent = {
     components: {
-        UserModalComponent,
         SkeletonComponent,
+        PageHeaderComponent,
+        UserModalComponent,
     },
 
     data() {
@@ -16,11 +20,17 @@ export const ListsComponent = {
             modalDetails: {
                 modalTitle: 'Insert User',
                 modalBtn: false
-            }
+            },
+
+            title: 'users',
+            breadcrumb: ['home', 'users'],
+            icon: 'bi bi-people-fill'
         };
     },
 
     methods: {
+        formatDateTime,
+
         async fetchUsers() {
             this.loading = true;
             try {
@@ -54,35 +64,44 @@ export const ListsComponent = {
     
     template: /* HTML */`
         <div id="activities-container">
-            <div class="page-header">
-              <h3 class="page-title"> USERS </h3>
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Users</li>
-                </ol>
-              </nav>
-            </div>
+            <page-header-component
+                :title="title"
+                :breadcrumb="breadcrumb"
+                :icon="icon"
+            >
+            </page-header-component>
 
             <div class="card shadow-sm p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4>Users List</h4>
-                    <input v-model="searchUser" id="searchUser" type="text" class="form-control w-25" placeholder="Search...">
                     <user-modal-component 
                         ref="userModal" 
                         @user-saved="fetchUsers"
                     >
                     </user-modal-component>
-                    <button class="btn btn-primary" @click="openAddUser"><i class="bi bi-plus-circle"></i> Add User</button>
+                    <div class="input-group" style="max-width:400px;">
+                      <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                      </span>
+                      <input 
+                        v-model="searchUser"
+                        id="searchUser"
+                        type="text" 
+                        class="form-control w-25" 
+                        placeholder="Search..."
+                      >
+                    </div>
+                    <button class="btn btn-primary" @click="openAddUser">
+                        <i class="bi bi-plus-circle"></i> Add User
+                    </button>
                 </div>
                 <table class="table table-bordered table-hover table-striped">
                     <thead class="table-dark">
                         <tr>
                             <th width="5%">ID</th>
-                            <th width="25%">Username</th>
-                            <th width="20%">Main_Group</th>
-                            <th width="20%">Status</th>
-                            <th width="15%">Date_Added</th>
+                            <th width="32%">Username</th>
+                            <th width="32%">Main_Group</th>
+                            <th width="6%">Status</th>
+                            <th width="10%">Date_Added</th>
                             <th width="15%">Actions</th>
                         </tr>
                     </thead>
@@ -97,11 +116,26 @@ export const ListsComponent = {
                                 <td>{{ index + 1 }}</td>
                                 <td>{{ user.username }}</td>
                                 <td>{{ user.main_group ? user.main_group.group_name : 'N/A'  }}</td>
-                                <td>{{ user.status }}</td>
-                                <td>{{ user.created_at }}</td>
-                                <td class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-sm btn-info text-white d-flex align-items-center" @click="openEditUser(user)"><i class="bi bi-pencil"></i></button>
-                                    <button class="btn btn-sm btn-danger text-white d-flex align-items-center"><i class="bi bi-trash"></i></button>
+                                <td>
+                                    <span v-if="user.status == 1 || user.status == -1" class="badge bg-success">
+                                        Active
+                                    </span>
+                                    <span v-else class="badge bg-secondary">
+                                        Inactive
+                                    </span>
+                                </td>
+                                <td v-html="formatDateTime(user.created_at)"></td>
+                                <td>
+                                    <button 
+                                        class="btn btn-sm btn-info text-white me-1" 
+                                        @click="openEditUser(user)"
+                                    >
+                                        <i class="bi bi-pencil"></i>
+                                    </button>
+                                    <button 
+                                        class="btn btn-sm btn-danger text-white">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                                 </td>
                             </tr>
                         </template>

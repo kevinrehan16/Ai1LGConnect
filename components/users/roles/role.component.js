@@ -1,25 +1,36 @@
 import api from "../../../assets/js/api";
 import { SkeletonComponent } from "../../common/skeleton.component";
+import { PageHeaderComponent } from "../../common/pageheader.component";
+import { formatDateTime } from "../../../assets/js/formatters";
+
 import { RoleModalComponent } from "../modals/RoleModalComponent";
 
 export const RolesComponent = {
     components: {
         SkeletonComponent,
+        PageHeaderComponent,
         RoleModalComponent
     },
 
     data() {
         return {
             loading: true,
-            rolesList: [],
+            searRole: '',
+            rolesLst: [],
             modalDetails: {
                 modalTitle: 'Insert Role',
                 modalBtn: false
-            }
+            },
+
+            title: 'roles',
+            breadcrumb: ['home', 'roles'],
+            icon: 'bi bi-person-fill-gear'
         }
     },
 
     methods: {
+        formatDateTime,
+
         async fetchRoles(){
             this.loading = true;
             try {
@@ -52,25 +63,32 @@ export const RolesComponent = {
 
     template: /* HTML */`
         <div id="activities-container">
-            <div class="page-header">
-              <h3 class="page-title"> ROLES </h3>
-              <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Roles</li>
-                </ol>
-              </nav>
-            </div>
+            <page-header-component 
+                :title="title"
+                :breadcrumb="breadcrumb"
+                :icon="icon"
+            >
+            </page-header-component>
 
             <div class="card shadow-sm p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4>Role List</h4>
-                    <input id="searchUser" type="text" class="form-control w-25" placeholder="Search...">
-                    <role-modal-component 
-                        ref="roleModal"
-                        @role-saved="fetchRoles"
-                    >
-                    </role-modal-component>
+                <role-modal-component 
+                    ref="roleModal"
+                    @role-saved="fetchRoles"
+                >
+                </role-modal-component>
+                    <div class="input-group" style="max-width:400px;">
+                      <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                      </span>
+                      <input 
+                        v-model="searRole"
+                        id="searRole"
+                        type="text" 
+                        class="form-control w-25" 
+                        placeholder="Search..."
+                      >
+                    </div>
                     <button class="btn btn-primary" @click="addRole"><i class="bi bi-plus-circle"></i> Add Role</button>
                 </div>
                 <table class="table table-bordered table-hover table-striped">
@@ -78,9 +96,9 @@ export const RolesComponent = {
                         <tr>
                             <th width="5%">ID</th>
                             <th width="25%">Group_Code</th>
-                            <th width="20%">Group_Name</th>
+                            <th width="25%">Group_Name</th>
                             <th width="20%">Description</th>
-                            <th width="15%">Date_Added</th>
+                            <th width="10%">Date_Added</th>
                             <th width="15%">Actions</th>
                         </tr>
                     </thead>
@@ -96,10 +114,10 @@ export const RolesComponent = {
                                 <td>{{ role.group_code }}</td>
                                 <td>{{ role.group_name }}</td>
                                 <td>{{ role.description }}</td>
-                                <td>{{ role.created_at }}</td>
-                                <td class="d-flex align-items-center gap-2">
-                                    <button class="btn btn-sm btn-info text-white d-flex align-items-center" @click="openEditRole(role)"><i class="bi bi-pencil"></i></button>
-                                    <button class="btn btn-sm btn-danger text-white d-flex align-items-center"><i class="bi bi-trash"></i></button>
+                                <td v-html="formatDateTime(role.created_at)"></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info text-white me-1" @click="openEditRole(role)"><i class="bi bi-pencil"></i></button>
+                                    <button class="btn btn-sm btn-danger text-white"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
                         </template>

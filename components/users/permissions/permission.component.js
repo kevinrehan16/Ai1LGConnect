@@ -1,12 +1,21 @@
 import api from "../../../assets/js/api";
+import { PageHeaderComponent } from "../../common/pageheader.component";
 
 export const PermissionsComponent = {
+  components:{
+    PageHeaderComponent,
+  },
+
   data() {
     return {
       searchPermission: '',
       permissionsList: [],
       loading: true,
       expandedModules: {},
+
+      title: 'permissions',
+      breadcrumb: ['home', 'permissions'],
+      icon: 'bi bi-person-fill-lock'
     };
   },
 
@@ -44,23 +53,26 @@ export const PermissionsComponent = {
 
   template: /* HTML */ `
     <div id="permissions-container">
-      <div class="page-header mb-4">
-        <h3 class="page-title">MODULE PERMISSIONS</h3>
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Module Permissions</li>
-          </ol>
-        </nav>
-      </div>
+      <page-header-component 
+        :title="title"
+        :breadcrumb="breadcrumb"
+        :icon="icon"
+      >
+      </page-header-component>
 
       <div class="mb-3 d-flex justify-content-between align-items-center">
-        <input 
-          v-model="searchPermission" 
-          type="text" 
-          class="form-control w-25" 
-          placeholder="Search permission..."
-        />
+        <div class="input-group" style="max-width:400px;">
+          <span class="input-group-text">
+            <i class="bi bi-search"></i>
+          </span>
+          <input 
+            v-model="searchPermission"
+            id="searchPermission"
+            type="text" 
+            class="form-control w-25" 
+            placeholder="Search..."
+          >
+        </div>
         <button class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add Module</button>
       </div>
 
