@@ -55,6 +55,19 @@ export const RolesComponent = {
             this.modalDetails.modalBtn = true;
             this.$refs.roleModal.show(role, this.modalDetails);
         },
+
+        async deleteRole(groupId) {
+            var msg = confirm("Do you want to delete the selected role?");
+            if (!msg) return;
+
+            try {
+                const response = await api.delete(`usergroups/${groupId}`);
+                alert("Selected role has beed deleted successfully.");
+                this.fetchRoles();
+            } catch (error) {
+                console.log(error.response?.data || error.message);
+            }
+        }
     },
 
     mounted() {
@@ -62,7 +75,7 @@ export const RolesComponent = {
     },
 
     template: /* HTML */`
-        <div id="activities-container">
+        <div id="main-container">
             <page-header-component 
                 :title="title"
                 :breadcrumb="breadcrumb"
@@ -117,7 +130,7 @@ export const RolesComponent = {
                                 <td v-html="formatDateTime(role.created_at)"></td>
                                 <td>
                                     <button class="btn btn-sm btn-info text-white me-1" @click="openEditRole(role)"><i class="bi bi-pencil"></i></button>
-                                    <button class="btn btn-sm btn-danger text-white"><i class="bi bi-trash"></i></button>
+                                    <button class="btn btn-sm btn-danger text-white" @click="deleteRole(role.group_code)"><i class="bi bi-trash"></i></button>
                                 </td>
                             </tr>
                         </template>

@@ -40,7 +40,7 @@ export const UsersComponent = {
     },
 
     template: /* html */`
-        <div id="activities-container">
+        <div id="main-container">
             <div class="page-header">
               <h3 class="page-title"> USERS </h3>
               <nav aria-label="breadcrumb">

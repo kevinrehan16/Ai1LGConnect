@@ -46,13 +46,12 @@ createApp({
         return {
             user: null,
             isCollapsed: false,
-            openMenu: null, // main menu open
+            openMenu: 'dashboard', // main menu open
             currentView: 'GraphsComponent',
             activeMain: 'dashboard',
             activeSub: 'graphs',
             floatingMenu: null,   // track floating menu state
             floatingTop: 0, // <-- Y position ng floating menu
-            activeSub: '',
         };
     },
     // --- DAGDAG NA SECTION DITO ---
@@ -62,8 +61,8 @@ createApp({
         if (savedState) {
             this.currentView = savedState.currentView || 'DashboardComponent'; // default view
             this.activeMain = savedState.activeMain || null;
-            this.activeSub = savedState.activeSub || null;
-            this.openMenu = savedState.openMenu || null;
+            this.activeSub = savedState.activeSub || this.activeSub;
+            this.openMenu = savedState.openMenu || this.openMenu;
         }
 
         // Makikinig tayo sa click sa buong document

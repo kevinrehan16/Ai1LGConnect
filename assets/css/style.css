@@ -52,6 +52,15 @@ html, body {
     overflow-y: auto;
 }
 
+.sidebar .sidebar-logo {
+    padding: 12px 20px 12px 20px !important;
+}
+
+.sidebar img{
+    width: 30px;
+    height: 30px;
+}
+
 .sidebar.collapsed {
     width: 70px;
 }
@@ -81,6 +90,7 @@ html, body {
     width: calc(100% - 250px);
     z-index: 1050;
     transition: all 0.3s;
+    background: linear-gradient(135deg, #dc3545, #f3384b) !important;
 }
 
 /* When sidebar collapsed */
@@ -259,6 +269,11 @@ html, body {
 @keyframes fadeIn {
     from { opacity: 0; transform: translateX(-5px); }
     to { opacity: 1; transform: translateX(0); }
+}
+
+.table .table-dark tr th {
+    background-color: #2f3235;
+    text-transform: uppercase;
 }
 
 .table td {

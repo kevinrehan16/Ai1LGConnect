@@ -104,17 +104,20 @@ export const TvserverModalComponent = {
                       class="form-control" 
                       v-model="formTvserver.server_id"
                       :disabled="this.modalInfo.modalBtn"
-                >
+                />
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-12">
                 <label>URL</label>
-                <input type="text" 
-                      class="form-control" 
-                      v-model="formTvserver.url"
-                      placeholder="https://example.com"
-                      >
+                <textarea 
+                  class="form-control"
+                  v-model="formTvserver.url"
+                  placeholder="https://example.com"
+                  rows="3"
+                  cols="3"
+                >
+                </textarea> 
               </div>
             </div>
             <div class="row mb-3">
@@ -125,7 +128,7 @@ export const TvserverModalComponent = {
                       maxlength="4" 
                       v-model="formTvserver.port"
                       placeholder="3306"
-                >
+                />
               </div>
               <div class="col-md-8">
                 <label>IP Address</label>
@@ -135,19 +138,19 @@ export const TvserverModalComponent = {
                         placeholder="192.168.0.1"
                         @input="formTvserver.ip_address = formatIP(formTvserver.ip_address)"
                         maxlength="15"
-                >
+                />
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-12">
                 <label>Client ID</label>
-                <input type="text" class="form-control" v-model="formTvserver.client_id">
+                <input type="text" class="form-control" v-model="formTvserver.client_id"/>
               </div>
             </div>
             <div class="row mb-3">
               <div class="col-md-12">
                 <label>Client Secret</label>
-                <input type="password" class="form-control" v-model="formTvserver.client_secret">
+                <input type="password" class="form-control" v-model="formTvserver.client_secret"/>
               </div>
             </div>
           </div>

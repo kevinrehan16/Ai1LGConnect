@@ -63,7 +63,7 @@ export const ListsComponent = {
     },
     
     template: /* HTML */`
-        <div id="activities-container">
+        <div id="main-container">
             <page-header-component
                 :title="title"
                 :breadcrumb="breadcrumb"

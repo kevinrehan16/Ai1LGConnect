@@ -1,9 +1,13 @@
 <aside :class="['sidebar bg-dark text-white', {collapsed: isCollapsed}]">
 
     <!-- LOGO -->
-    <div class="sidebar-logo text-center py-3 border-bottom">
-        <h5 class="mb-1" v-show="!isCollapsed">Ai1 Genesis</h5>
-        <i v-show="isCollapsed" class="bi bi-grid"></i>
+    <div class="sidebar-logo border-bottom">
+        <h5 class="mb-1" v-show="!isCollapsed">
+            <span class="d-flex align-items-center gap-2">
+                <img src="assets/images/logo.jpg" loading="lazy" class="img-fluid rounded" /> Connect
+            </span>
+        </h5>
+        <img src="assets/images/logo.jpg" loading="lazy" class="img-fluid rounded" v-show="isCollapsed" style="width:33px; height:33px;" />
     </div>
 
     <div class="sidebar-menu p-2">

@@ -4,6 +4,7 @@ import api from "../../../assets/js/api";
 export const RoleModalComponent = {
   data() {
     return {
+      saving: false,
       modalInfo: [],
       formRole: {
         group_code: '',
@@ -41,9 +42,11 @@ export const RoleModalComponent = {
     reset(){
       this.formRole.group_name = '';
       this.formRole.description = '';
+      this.saving = false;
     },
 
     async saveRole(){
+      this.saving = true;
       try {
         if(!this.modalInfo.modalBtn){
           const response = await api.post("usergroups", this.formRole);
@@ -56,10 +59,11 @@ export const RoleModalComponent = {
 
         // console.log(response.data);
         this.$emit('role-saved');
-        this.closeRoleModal();
       } catch (error) {
-        console.log(error.data);
+        console.log(error.response?.data || error.message);
       }
+
+      this.closeRoleModal();
     },
     
   },
@@ -86,7 +90,10 @@ export const RoleModalComponent = {
             </div>
           </div>
           <div class="modal-footer">
-            <button class="btn btn-primary" @click="saveRole"><i class="bi bi-check"></i> Save</button>
+            <button class="btn btn-primary" @click="saveRole" :disabled="saving">
+              <i :class="saving ? 'spinner-border spinner-border-sm' : 'bi bi-check'" role="status" :aria-hidden="saving ? 'true' : 'false'"></i>
+              {{ saving ? ' Saving...' : ' Save' }}
+            </button>
             <button class="btn btn-danger" @click="closeRoleModal"><i class="bi bi-x"></i> Close</button>
           </div>
         </div>

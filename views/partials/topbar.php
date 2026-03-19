@@ -1,12 +1,12 @@
-<nav class="topbar navbar navbar-light bg-light shadow-sm px-3">
+<nav class="topbar navbar shadow-sm px-3">
 
-    <button class="btn btn-outline-secondary" @click="toggleSidebar">
+    <button class="btn btn-outline-light" @click="toggleSidebar">
         <i class="bi bi-list"></i>
     </button>
 
     <div class="ms-auto dropdown">
-        <button class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown">
-            <?= ucwords($_SESSION['username']); ?>
+        <button class="btn btn-light dropdown-toggle d-flex align-items-center justify-content-center gap-1" data-bs-toggle="dropdown">
+            <i class="bi bi-person-fill"></i> <?= ucwords($_SESSION['username']); ?>
         </button>
 
         <ul class="dropdown-menu dropdown-menu-end">
