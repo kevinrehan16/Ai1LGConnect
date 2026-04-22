@@ -301,3 +301,26 @@ html, body {
         background-position: -200% 0;
     }
 }
+
+.log-data-box {
+    max-height: 80px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 11px;
+    background-color: #0b0b0b;
+    padding: 8px;
+    border-radius: 4px;
+    word-break: break-all;
+    white-space: normal;
+    border: 1px solid #454646; /* Optional: para may manipis na border */
+    color: #ffffff;
+}
+
+/* Optional: Gandahan natin ang scrollbar para sa modern look */
+.log-data-box::-webkit-scrollbar {
+    width: 4px;
+}
+.log-data-box::-webkit-scrollbar-thumb {
+    background: #ced4da;
+    border-radius: 10px;
+}

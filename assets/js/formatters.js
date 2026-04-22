@@ -49,3 +49,21 @@ export function formatIP(value) {
 
   return formatted.join('.');
 }
+
+export function formatJSON(jsonString) {
+  try {
+    // I-parse ang string tapos i-stringify ulit na may 4-space indentation
+    const obj = JSON.parse(jsonString);
+    return JSON.stringify(obj, null, 4);
+  } catch (e) {
+    // Kung hindi siya valid JSON string, ibalik lang ang original
+    return jsonString;
+  }
+}
+
+export const formatTitleCase = (str) => {
+    if (!str) return '';
+    return str.toLowerCase().split(' ').map(word => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    }).join(' ');
+};
